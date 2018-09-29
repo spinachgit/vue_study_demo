@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../public/js/vue.min.js"></script>
+    <link href="../public/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="myApp">
+    <div>
+        全局组件：<today-weather/>
+    </div>
+    <div>局部组件：<my-weather></my-weather></div>
+</div>
+<br/>
+<div id="myApp2">
+    <div>
+        全局组件：<today-weather/>
+    </div>
+    <div>局部组件：<my-weather></my-weather></div>
+</div>
+<script>
+    var WeatherComponent = {
+        template: '<strong>I am local!</strong>'
+    };
+
+    Vue.component('today-weather', {
+        template: '<strong>{{todayWeather}}</strong>',
+        data: function () {
+            return {
+                todayWeather: 'I am global!'
+            };
+        },
+    })
+    /**
+    Vue.component('today-weather', {
+        template: '<strong>I am global!</strong>',
+    })
+     **/
+
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+        },
+    });
+    var myApp2 = new Vue({
+        el: '#myApp2',
+        data: {
+        },
+        components: {
+            'my-weather': WeatherComponent
+        },
+    });
+</script>
+</body>
+
+</html>
