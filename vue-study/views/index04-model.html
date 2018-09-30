@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../public/js/vue.min.js"></script>
+    <link href="../public/css/style.css" rel="stylesheet"> </head>
+
+<body>
+<div id="myApp">
+    {{}}绑定html值.
+    <p>您最喜欢的游戏是：{{mygame}}</p>
+    v-model:绑定输入框
+    <input v-model="mygame">
+
+    <br/>
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+
+    多行文本
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line;">{{ mulmessage }}</p>
+    <br><textarea v-model="mulmessage" placeholder="add multiple lines"></textarea>
+
+    <br>单个复选框，绑定到布尔值：
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{ checked }}</label>
+
+
+    <br/>多个复选框，绑定到同一个数组：
+    <div id='example-3'>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+
+    <p>单选按钮</p>
+    <div id="example-4">
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+
+    <p>单选时：</p>
+    <div id="example-5">
+        <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <P>多选时 (绑定到一个数组)：</P>
+
+    <div id="example-6">
+        <select v-model="mulselected" multiple style="width: 50px;">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ mulselected }}</span>
+    </div>
+
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            mygame: '超级马里奥GTA'
+            ,message:''
+            ,mulmessage:''
+            ,checked:false
+            ,checkedNames:[]
+            ,picked:''
+            ,selected:'B'
+            ,mulselected:[]
+        },
+    });
+</script>
+</body>
+
+</html>

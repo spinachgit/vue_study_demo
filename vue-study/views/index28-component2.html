@@ -17,16 +17,24 @@
           作详细解释。
         -->
         <todo-item
-                v-for="item in groceryList"
-                v-bind:todo="item"
-                v-bind:key="item.id">
+                v-for="(item,index) in groceryList"
+                v-bind:todo="item" v-bind:index="index" >
         </todo-item>
     </ol>
 </div>
 <script>
     Vue.component('todo-item', {
-        props: ['todo'],
-        template: '<li>{{ todo.id }} + {{ todo.text }}</li>'
+        data:{
+            data_i:'this data value!'
+        },
+        props: ['todo','index'],
+        template: '<li>{{ todo.id }}=={{ todo.text }}+{{compute_index}}=={{aaa}}== </li>',
+        computed:{
+            compute_index:function() {
+                return this.index * 3;
+            },
+            aaa:this.index*5
+        }
     })
 
     var app7 = new Vue({

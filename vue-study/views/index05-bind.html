@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../public/js/vue.min.js"></script>
+    <link href="../public/css/style.css" rel="stylesheet"> </head>
+
+<body>
+<div id="myApp" name="test">
+    对于单选按钮，复选框及选择框的选项，v-model 绑定的值通常是静态字符串 (对于复选框也可以是布尔值).
+    如果:值绑定到 Vue 实例的一个动态属性上，这时可以用 v-bind 实现，并且这个属性的值可以不是字符串。
+
+    <p>您最喜欢的游戏是：{{mygame}}</p>
+    <p v-model="mygame"></p>
+    <button v-on:click="btnClick('我的世界')">我的世界</button>
+    <button v-on:click="btnClick('勇者斗恶龙')">勇者斗恶龙</button>
+    <button v-on:click="btnClick('塞尔达传说')">塞尔达传说</button>
+    <button @click="btnClick('魔界战记5')">魔界战记5</button>
+
+    <p>select渲染的静态选项：</p>
+    <div id="example-6">
+        <select v-model="selected" multiple style="width: 50px;">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <p>select渲染的动态选项：</p>
+    <select v-model="dyselected" multiple style="width: 50px;">
+        <option v-for="option in options" v-bind:value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    <span>Selected: {{ dyselected }}</span>
+
+    <p>
+        <button @click="changeInput()">changeValue</button>
+        <input type="text" v-bind:value="bindvalue">{{bindvalue}}
+    </p>
+
+    <p>
+        <br/>input.nolazy:<input v-model="nolazy" >{{nolazy}}
+        <br/>input.lazy:<input v-model.lazy="msglazy" >{{msglazy}}
+        <br/>input.number:<input v-model.number="msgnumber" type="number">{{msgnumber}}
+        <br/>input.trim:<input v-model.trim="msgtrim" >{{msgtrim}}
+    </p>
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            mygame: '超级马里奥'
+            ,selected: 'C'
+            ,dyselected: 'B'
+            ,options: [
+                { text: 'One', value: 'A' },
+                { text: 'Two', value: 'B' },
+                { text: 'Three', value: 'C' }
+            ]
+            ,pick:'this is model value!'
+            ,bindvalue:"this s bind value"
+            ,nolazy:''
+            ,msglazy:''
+            ,msgnumber:''
+            ,msgtrim:''
+
+        },
+        methods: {
+            btnClick: function(pname){
+                this.mygame = pname;
+                console.log(this.$el.innerText);
+                console.log(this.$el.id);
+                console.log(this.$el.getElementsByTagName("button"));
+            },
+            changeInput:function(){
+                this.pick=this.bindvalue;
+            }
+        },
+    });
+</script>
+</body>
+
+</html>

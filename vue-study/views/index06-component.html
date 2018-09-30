@@ -11,14 +11,17 @@
 <body>
 <div id="myApp">
   <ol>
-    <game-item v-for="item in games" v-bind:game="item"></game-item>
+    <game-item v-for="(item,index) in games" v-bind:game="item" v-bind:aaa="index"></game-item>
   </ol>
+  <!--<ol>-->
+    <!--<game-item v-for="(game,index) in games" v-bind:(game,index)="item"></game-item>-->
+  <!--</ol>-->
 </div>
 <script>
 /* 组件定义：game-item */
 Vue.component('game-item', {
-  props: ['game'],
-  template: '<li>{{ game.title }}</li>'
+  props: ['game','aaa'],
+  template: '<ul>{{ game.title }}==={{aaa}}</ul>'
 });
 /* Vue对象实例化 */
 var myApp = new Vue({
