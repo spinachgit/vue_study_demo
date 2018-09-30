@@ -10,8 +10,11 @@
 
 <body>
 <div id="myApp">
-    <p>{{message}}</p>
-    <p>{{message | toupper }}</p>
+    <p><input v-model="message"/></p>
+    <p><input v-model="message.split(' ')[0]"/></p>
+    <p>origin:{{message}}</p>
+    <p>filter:{{message | toupper }}</p>
+    <p>javascript:{{message.split(' ')[0] }} == {{message.toUpperCase()}}</p>
     <hr>
     <p>现在的vue.js学习进度是{{num}}({{num | topercentage}})。</p>
 </div>

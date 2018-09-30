@@ -11,7 +11,9 @@
 <body>
 <div id="myApp">
     计算属性关键词 computed
-    今年3月3日发卖的任天堂新一代主机Switch的价格是：{{price}}円，含税价格为：{{priceInTax}}円，折合人民币为：{{priceChinaRMB}}元。
+    <input v-model.number="price" />
+    今年3月3日发卖的任天堂新一代主机Switch的价格是：{{price}}円，
+    含税价格为：{{priceInTax}}円，折合人民币为：{{priceChinaRMB}}元。
 </div>
 <script>
     var myApp = new Vue({

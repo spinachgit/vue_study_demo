@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../public/js/vue.min.js"></script>
+    <link href="../public/css/style.css" rel="stylesheet"> </head>
+
+<body>
+<div id="myApp">
+    <p>message:<input v-model="message"/></p>
+    <p>messageZh:<input v-model="messageZh"/></p>
+    <p>messageEn:<input v-model="messageEn"/></p>
+    <p>messageJa:<input v-model="messageJa"/></p>
+    <p>origin:{{message}}</p>
+    <p>filter:{{message | toupper }}</p>
+    <p>javascript:{{message.split(',,,')[0] }} == {{message.toUpperCase()}}</p>
+    <hr>
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            message: '你好,,,hello,,,こんにちは',
+            messageZh:'',
+            messageEn:'',
+            messageJa:'',
+        },
+        mounted:function(){
+            this.init();
+        },
+        methods:{
+            init:function(){
+                this.messageZh = getMessage(this.message,'zh');
+                this.messageEn = getMessage(this.message,'en');
+                this.messageJa = getMessage(this.message,'ja');
+            }
+        },
+        filters: {
+            toupper: function(value){
+                return value.toUpperCase();
+            }
+        },
+        watch: {
+            message: function(){
+                console.log(this.message);
+                this.messageZh = getMessage(this.message,'zh');
+                this.messageEn = getMessage(this.message,'en');
+                this.messageJa = getMessage(this.message,'ja');
+            },
+            messageZh: function(){
+                console.log(this.message);
+                this.message = this.messageZh+",,,"+this.messageEn+",,,"+this.messageJa;
+            },
+            messageEn: function(){
+                this.message = this.messageZh+",,,"+this.messageEn+",,,"+this.messageJa;
+            },
+            messageJa: function(){
+                this.message = this.messageZh+",,,"+this.messageEn+",,,"+this.messageJa;
+            }
+        }
+    });
+
+    function getMessage(value,flag){
+        var array = value.split(",,,");
+        switch (flag){
+            case 'zh': return array[0];break;
+            case 'en': return array[1];break;
+            case 'ja': return array[2];break;
+            default:break;
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../public/js/vue.min.js"></script>
+    <link href="../public/css/style.css" rel="stylesheet"> </head>
+
+<body>
+<div id="myApp">
+    <p>原始价<input v-model.number="price" /></p>
+    <p>含税价<input v-model.number="priceInTax" /></p>
+    <p>人民币<input v-model.number="priceChinaRMB" /></p>
+    <p>原始价：{{price}}円，
+        含税价为：{{priceInTax}}円，
+        人民币为：{{priceChinaRMB}}元。</p>
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            price: 0,
+            priceInTax: 0,
+            priceChinaRMB: 0,
+        },
+        watch: {
+            price: function(newVal, oldVal){
+                console.log(newVal, oldVal);
+                this.priceInTax = this.price * 2;
+                this.priceChinaRMB = this.priceInTax * 3;
+            },
+            priceInTax: function(newVal, oldVal){
+                console.log(newVal, oldVal);
+                this.price = this.priceInTax/2;
+                this.priceChinaRMB = this.priceInTax/2*3;
+            },
+            priceChinaRMB: function(newVal, oldVal){
+                console.log(newVal, oldVal);
+                this.price = this.priceChinaRMB/3;
+                this.priceInTax = this.priceChinaRMB/3*2;
+            },
+        },
+    });
+    myApp.price = 3;
+</script>
+</body>
+
+</html>

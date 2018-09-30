@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../public/js/vue.min.js"></script>
+    <link href="../public/css/style.css" rel="stylesheet"> </head>
+
+<body>
+<div id="myApp">
+    <p>1#computed：计算属性将被混入到 Vue 实例中。所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。</p>
+    <p>2#methods：methods 将被混入到 Vue 实例中。可以直接通过 VM 实例访问这些方法，或者在指令表达式中使用。方法中的 this 自动绑定为 Vue 实例。</p>
+    <p>3#watch：是一种更通用的方式来观察和响应 Vue 实例上的数据变动。一个对象，键是需要观察的表达式，值是对应回调函数。值也可以是方法名，或者包含选项的对象。Vue 实例将会在实例化时调用 $watch()，遍历 watch 对象的每一个属性。</p>
+
+    <p>通俗来讲，
+    computed是在HTML DOM加载后马上执行的，如赋值；
+    而methods则必须要有一定的触发条件才能执行，如点击事件；
+    watch呢？它用于观察Vue实例上的数据变动。对应一个对象，键是观察表达式，值是对应回调。值也可以是方法名，或者是对象，包含选项。
+    所以他们的执行顺序为：默认加载的时候先computed再watch，不执行methods；等触发某一事件后，则是：先methods再watch。
+    </p><hr />
+
+    <p>message:<input v-model="message"/></p>
+    <p>messageZh:<input v-model="messageZh"/></p>
+    <p>messageEn:<input v-model="messageEn"/></p>
+    <p>messageJa:<input v-model="messageJa"/></p>
+    <p>origin:{{message}}</p>
+    <p>filter:{{message | toupper }}</p>
+    <p>javascript:{{message.split(',,,')[0] }} == {{message.toUpperCase()}}</p>
+    <hr>
+</div>
+<script>
+    var myApp = new Vue({
+        el: '#myApp',
+        data: {
+            message: '你好,,,hello,,,こんにちは',
+            messageZh:'',
+            messageEn:'',
+            messageJa:'',
+        },
+        mounted:function(){
+            this.init();
+        },
+        methods:{
+            init:function(){
+                this.messageZh = getMessage(this.message,'zh');
+                this.messageEn = getMessage(this.message,'en');
+                this.messageJa = getMessage(this.message,'ja');
+            }
+        },
+        filters: {
+            toupper: function(value){
+                return value.toUpperCase();
+            }
+        },
+        watch: {
+            message: function(){
+                console.log(this.message);
+                this.messageZh = getMessage(this.message,'zh');
+                this.messageEn = getMessage(this.message,'en');
+                this.messageJa = getMessage(this.message,'ja');
+            },
+            messageZh: function(){
+                console.log(this.message);
+                this.message = this.messageZh+",,,"+this.messageEn+",,,"+this.messageJa;
+            },
+            messageEn: function(){
+                this.message = this.messageZh+",,,"+this.messageEn+",,,"+this.messageJa;
+            },
+            messageJa: function(){
+                this.message = this.messageZh+",,,"+this.messageEn+",,,"+this.messageJa;
+            }
+        }
+    });
+
+    function getMessage(value,flag){
+        var array = value.split(",,,");
+        switch (flag){
+            case 'zh': return array[0];break;
+            case 'en': return array[1];break;
+            case 'ja': return array[2];break;
+            default:break;
+        }
+    }
+</script>
+</body>
+
+</html>
