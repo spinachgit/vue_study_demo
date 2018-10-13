@@ -10,7 +10,8 @@
 
 <body>
 <div id="myApp">
-    <p><input v-model="message | uppercase" /></p>
+    <p><input v-model="messageUpper" /></p>
+    <p><input v-model="message" /></p>
     <p><input v-model="message.split(' ')[0]"/></p>
     <p>origin:{{message}}</p>
     <p>filter:{{message | toupper }}</p>
@@ -33,6 +34,16 @@
                 return value * 100 + '%';
             },
         },
+        computed:{
+            messageUpper:{
+                get:function(){
+                    return this.message;
+                },
+                set:function(val){
+                    this.message = val.toUpperCase();
+                }
+            }
+        }
     });
 </script>
 </body>
